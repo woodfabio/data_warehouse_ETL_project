@@ -1,4 +1,4 @@
-# Projeto-i
+# Data warehouse ETL project
 
 O objetivo deste projeto é a implementação de uma pequena _data warehouse_ na qual criaremos um processo de ETL em um script Python que extrai dados existentes em arquivos CSV e em um bando de dados MongoDB, subindo-os em um bando de dados PostgreSQL usando modelagem dimensional.
 O projeto utiliza Docker Compose para gerar três containers contendo cada um um servidor (MongoDB, Python ou PostgreSQL), os quais estão conectados por uma rede interna.
