@@ -1,0 +1,49 @@
+version: '3.9'
+
+services:
+  postgres:
+    image: postgres:latest
+    restart: always
+    environment:
+      POSTGRES_DB: db
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: secret
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - mynetwork
+
+  mongodb:
+    image: mongo:latest
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: user2
+      MONGO_INITDB_ROOT_PASSWORD: secret2
+    volumes:
+      - ./mongodb-init/init.js:/docker-entrypoint-initdb.d/init.js:ro
+    ports:
+      - "27017:27017"
+    networks:
+      - mynetwork
+
+  python_app:
+    build:
+      context: ./python_etl
+      dockerfile: docker/Dockerfile
+    volumes:
+      - ./input:/app/input
+    depends_on:
+      - postgres
+      - mongodb
+    networks:
+      - mynetwork
+
+volumes:
+  postgres_data:
+
+networks:
+  mynetwork:
+    driver: bridge
+
