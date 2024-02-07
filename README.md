@@ -1,6 +1,6 @@
 # Data warehouse ETL project
 
-O objetivo deste projeto é a implementação de uma pequena _data warehouse_ na qual criaremos um processo de ETL em um script Python que extrai dados existentes em arquivos CSV e em um bando de dados MongoDB, subindo-os em um bando de dados PostgreSQL usando modelagem dimensional.
+O objetivo deste projeto é a implementação de uma pequena _data warehouse_ na qual criaremos um processo de ETL em um script Python que extrai dados sobre vendas existentes em arquivos CSV e em um banco de dados MongoDB, subindo-os em um bando de dados PostgreSQL usando modelagem dimensional.
 O projeto utiliza Docker Compose para gerar três containers contendo cada um um servidor (MongoDB, Python ou PostgreSQL), os quais estão conectados por uma rede interna.
 
 A seguir serão descritas as etapas presentes deste processo no arquivo "etl.py":
@@ -16,7 +16,7 @@ depends_on:
 ainda assim o código de _etl.py_ era executado antes da completa inicialização dos demais containers, razão pela qual usou-se a função "sleep" para gerar um delay na execução do código para dar tempos aos outros containers de iniciarem corretametne.
 
 ## Parte 2: configuração de databases:
-Em seguida são criadas variáveis qe armazenam os valores necessários para efetuar a conexão com os servidores MongoDB e PostreSQL, a saber: _host_ (nome do servidor no Docker Compose), porta, nome do banco de dados, nome de usuário, senha e, no caso do MongoDB, nome da coleção que será lida.
+Em seguida são criadas variáveis que armazenam os valores necessários para efetuar a conexão com os servidores MongoDB e PostreSQL, a saber: _host_ (nome do servidor no Docker Compose), porta, nome do banco de dados, nome de usuário, senha e, no caso do MongoDB, nome da coleção que será lida.
 
 ## Parte 3: importação de arquivos CSV:
 Nesta parte usamos a função _read_csv_ da biblioteca Pandas para ler os arquivos CSV da pasta _input_ e os salvamos em um dicionário chamado _dfs_ (abreviação de "dataframes"), cuidando para inserir uma nova coluna na tabela _order_payments_ que será usada como chave primária, de acordo com o modelo dimensional desenvolvido.
